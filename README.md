@@ -1,41 +1,36 @@
-# Azure Inn website — starter prototype
+# Azure Inn — website prototype
+Location supplied by owner: Anomabo, Central Region, Ghana.
 
-Location: Anomabo, Central Region, Ghana.
+## Current frontend
+- Responsive coastal-inspired homepage, room section, about and contact placeholders.
+- Hero image uses the first image supplied in the project conversation. It visibly includes a pool; because the owner confirmed Azure Inn has no pool, the hero crop is positioned to emphasize the pavilion and lounge. The source image is illustrative inspiration, not a verified Azure Inn photograph.
+- Two supplied room images are used as illustrative references. A third category uses a neutral placeholder.
+- Draft-only sample prices: Standard GHS 450/night; Deluxe GHS 650/night; Executive Suite GHS 950/night. These are not approved rates or confirmed room categories.
+- Date validation and a booking enquiry demo dialog.
 
-## Included
-- Responsive single-page hotel website
-- Coastal-inspired navy, white and gold visual direction
-- Room cards with **draft-only** sample prices:
-  - Standard Room: GHS 450/night
-  - Deluxe Room: GHS 650/night
-  - Executive Suite: GHS 950/night
-- Date and guest selectors with basic date validation
-- Mobile navigation
-- Booking-request demo dialog
+## Important limitations
+No live availability, reservation storage, customer accounts, admin login, email/SMS, or payment processing exists yet. The enquiry dialog is only a front-end demonstration. Do not accept real bookings through this prototype.
+The supplied images may depict other properties and must not be represented as actual Azure Inn photographs. Replace with owner-approved images or commissioned/generated illustrative images before public marketing.
+No swimming pool is advertised.
 
-## Important prototype limitations
-This is a frontend starter only. It does **not** check live inventory, create or store reservations, send email/SMS, or accept payments. The sample room categories, descriptions and prices are not verified hotel facts and must be approved by the hotel owner. No swimming pool is advertised.
+## GitHub update
+Upload/replace these files in the repository root, preserving folders:
+- `index.html`
+- `css/style.css`
+- `js/main.js`
+- `images/` (all three image files)
+- `README.md`
 
-The room illustrations are CSS placeholders, not photographs of Azure Inn. Replace them with approved AI-generated room images or actual hotel photos before launch. Any generated imagery must be clearly treated as illustrative rather than documentary photos of the property.
+GitHub Pages source should remain `main` and `/ (root)`. After committing, allow Pages to redeploy, then hard-refresh the site with Ctrl+F5.
 
-## Run locally
-Open `index.html` in a browser, or use VS Code Live Server.
+## Still needed from hotel owner
+1. Confirm actual room categories, inventory per category, bed types, maximum occupancy and amenities.
+2. Approve or replace all sample nightly prices.
+3. Supply official phone/WhatsApp, email, street address/map pin and social links.
+4. Confirm check-in/out times, cancellation, deposit, refund and no-show policies.
+5. Confirm services/facilities actually offered and provide approved hotel description.
+6. Choose booking approval process and staff/admin users.
+7. Decide payment methods and provide business account details only through secure provider onboarding (never commit secrets to GitHub).
 
-## Publish the frontend with GitHub Pages
-1. Create a GitHub repository named `azure-inn`.
-2. Upload the contents of this folder to the repository root.
-3. In GitHub, open **Settings → Pages**.
-4. Choose **Deploy from a branch**, select `main` and `/ (root)`, then save.
-5. GitHub Pages will publish the static frontend.
-
-GitHub Pages cannot run a PHP/Node backend or safely process bookings/payments. For real reservations, connect a backend API and database (for example, a hosted Node/PHP service with PostgreSQL/MySQL), then integrate a Ghana-supported payment provider after checking current fees, settlement terms and API documentation. Never put secret API keys in frontend JavaScript or a public GitHub repository.
-
-## Owner details still required
-- Confirm actual room categories and number of rooms in each category
-- Approve or replace sample nightly rates
-- Confirm room occupancy, bed types and facilities
-- Hotel phone/WhatsApp and email
-- Exact address and map pin
-- Check-in/check-out times, cancellation and deposit policies
-- Preferred payment methods and payment provider account
-- Approved hotel story and any real facility information
+## Future production work
+Add a secure backend/database for inventory and reservations, admin authentication/roles, booking notifications, audit trail and payment provider checkout. Verify provider availability, fees, settlement, refunds, webhook support and current Ghana compliance before selecting a payment integration. Keep API secrets server-side, never in public frontend code.
