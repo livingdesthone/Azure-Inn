@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Discover Azure Inn in Anomabo, Central Region, Ghana. Explore rooms and request your stay.">
+  <title>Azure Inn | Anomabo, Ghana</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="#home" aria-label="Azure Inn home"><span class="brand-mark">A</span><span>AZURE <b>INN</b><small>ANOMABO · GHANA</small></span></a>
+    <button class="menu-toggle" aria-label="Open navigation" aria-expanded="false">☰</button>
+    <nav class="nav">
+      <a href="#home">Home</a><a href="#rooms">Rooms</a><a href="#about">About</a><a href="#contact">Contact</a>
+      <a class="nav-cta" href="#booking">Book your stay</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero" id="home">
+      <div class="hero-shade"></div>
+      <div class="hero-content">
+        <p class="eyebrow">A COASTAL STAY IN CENTRAL REGION</p>
+        <h1>Make room for<br><em>something beautiful.</em></h1>
+        <p class="hero-copy">Welcome to Azure Inn — a place to slow down, feel at home and experience the warmth of Anomabo.</p>
+        <a class="button button-gold" href="#rooms">Explore our rooms <span>→</span></a>
+      </div>
+      <div class="hero-note"><span class="note-dot"></span> ANOMABO, GHANA</div>
+    </section>
+
+    <section class="booking-wrap" id="booking">
+      <form class="booking-bar" id="availability-form">
+        <label>Check-in<input type="date" id="checkin" required></label>
+        <label>Check-out<input type="date" id="checkout" required></label>
+        <label>Guests<select id="guests"><option>1</option><option selected>2</option><option>3</option><option>4</option></select></label>
+        <button class="button button-navy" type="submit">Explore availability <span>→</span></button>
+      </form>
+      <p class="booking-note">Availability is a request at this prototype stage. Final confirmation comes from the hotel.</p>
+    </section>
+
+    <section class="section rooms-section" id="rooms">
+      <div class="section-heading"><p class="eyebrow">REST EASY</p><h2>Rooms & <em>Suites</em></h2><p>Find the space that feels right for your stay.</p></div>
+      <div class="room-grid">
+        <article class="room-card">
+          <div class="room-art room-standard"><span>STANDARD</span></div>
+          <div class="room-info"><div class="room-top"><h3>Standard Room</h3><span class="draft-tag">DRAFT RATE</span></div><p>A welcoming room designed for a comfortable, easy stay.</p><div class="room-bottom"><strong>GHS 450 <small>/ night</small></strong><a href="#booking" class="text-link" data-room="Standard Room">Request this room →</a></div></div>
+        </article>
+        <article class="room-card">
+          <div class="room-art room-deluxe"><span>DELUXE</span></div>
+          <div class="room-info"><div class="room-top"><h3>Deluxe Room</h3><span class="draft-tag">DRAFT RATE</span></div><p>Extra space and a little more room to unwind.</p><div class="room-bottom"><strong>GHS 650 <small>/ night</small></strong><a href="#booking" class="text-link" data-room="Deluxe Room">Request this room →</a></div></div>
+        </article>
+        <article class="room-card">
+          <div class="room-art room-suite"><span>EXECUTIVE</span></div>
+          <div class="room-info"><div class="room-top"><h3>Executive Suite</h3><span class="draft-tag">DRAFT RATE</span></div><p>A proposed premium option for guests seeking more room.</p><div class="room-bottom"><strong>GHS 950 <small>/ night</small></strong><a href="#booking" class="text-link" data-room="Executive Suite">Request this room →</a></div></div>
+        </article>
+      </div>
+      <p class="disclaimer">Room categories, descriptions and sample prices are placeholders for planning only. The hotel must approve all details before launch.</p>
+    </section>
+
+    <section class="about-section" id="about">
+      <div class="about-art"><div class="about-art-inner"><span>AZURE</span><small>WHERE COMFORT MEETS THE COAST</small></div></div>
+      <div class="about-copy"><p class="eyebrow">THE AZURE EXPERIENCE</p><h2>A thoughtful stay,<br><em>rooted in warmth.</em></h2><p>Set in Anomabo, Azure Inn is being designed around the simple things that make a stay memorable: comfort, a warm welcome and an easy booking experience.</p><p class="placeholder-note">Hotel story and verified facilities to be supplied by the owner.</p></div>
+    </section>
+
+    <section class="section contact-section" id="contact">
+      <div class="section-heading"><p class="eyebrow">WE'D LOVE TO WELCOME YOU</p><h2>Plan your <em>stay.</em></h2><p>Contact details will be added once confirmed by the hotel.</p></div>
+      <div class="contact-card"><div><span class="contact-label">LOCATION</span><strong>Anomabo, Central Region, Ghana</strong></div><div><span class="contact-label">PHONE / WHATSAPP</span><strong>To be provided by hotel</strong></div><div><span class="contact-label">EMAIL</span><strong>To be provided by hotel</strong></div></div>
+    </section>
+  </main>
+
+  <footer><a class="brand brand-footer" href="#home"><span class="brand-mark">A</span><span>AZURE <b>INN</b><small>ANOMABO · GHANA</small></span></a><p>© <span id="year"></span> Azure Inn. Website prototype.</p><a href="#home">Back to top ↑</a></footer>
+
+  <dialog id="request-dialog">
+    <form method="dialog" class="dialog-close"><button aria-label="Close">×</button></form>
+    <p class="eyebrow">BOOKING REQUEST</p><h2>Let's plan your stay.</h2>
+    <p id="request-summary">Your selected dates and room will appear here.</p>
+    <p class="dialog-warning">This is a front-end demonstration. It does not create a reservation or take payment yet.</p>
+    <button class="button button-navy" id="close-dialog">Got it</button>
+  </dialog>
+  <script src="js/main.js"></script>
+</body>
+</html>
