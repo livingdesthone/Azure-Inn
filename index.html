@@ -1,0 +1,137 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Discover comfort and hospitality at Azure Inn, Anomabo, Central Region, Ghana.">
+    <title>Azure Inn | Comfort, Elegance & Hospitality</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <header>
+        <div class="top-bar">
+            <span>Anomabo, Central Region, Ghana</span>
+            <span>Welcome to Azure Inn</span>
+        </div>
+
+        <nav class="navbar">
+            <a href="#" class="logo">AZURE <span>INN</span></a>
+
+            <div class="nav-links">
+                <a href="#home">Home</a>
+                <a href="#about">About Us</a>
+                <a href="#rooms">Rooms & Suites</a>
+                <a href="#facilities">Facilities</a>
+                <a href="#contact">Contact</a>
+            </div>
+
+            <a href="#booking" class="nav-button">Book a Room</a>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero" id="home">
+            <div class="hero-content">
+                <p class="eyebrow">WELCOME TO AZURE INN</p>
+                <h1>Comfort, Elegance<br> & Hospitality.</h1>
+
+                <p>
+                    Experience a welcoming stay in the heart
+                    of Anomabo, Central Region, Ghana.
+                </p>
+
+                <a href="#rooms" class="primary-button">
+                    Explore Our Rooms
+                </a>
+            </div>
+        </section>
+
+        <section class="booking-section" id="booking">
+            <h2>Book Your Stay</h2>
+
+            <form id="booking-form">
+                <label>
+                    Check-in
+                    <input type="date" id="checkin" required>
+                </label>
+
+                <label>
+                    Check-out
+                    <input type="date" id="checkout" required>
+                </label>
+
+                <label>
+                    Room Type
+                    <select id="room" required>
+                        <option value="">Select a room</option>
+                    </select>
+                </label>
+
+                <label>
+                    Guests
+                    <select id="guests">
+                        <option value="1">1 Guest</option>
+                        <option value="2">2 Guests</option>
+                        <option value="3">3 Guests</option>
+                        <option value="4">4 Guests</option>
+                    </select>
+                </label>
+
+                <button type="submit">Check Availability</button>
+            </form>
+
+            <p id="booking-message"></p>
+        </section>
+
+        <section class="about-section" id="about">
+            <p class="eyebrow">ABOUT AZURE INN</p>
+            <h2>A Place to Feel at Home</h2>
+            <p>
+                Welcome to Azure Inn, located in Anomabo,
+                Central Region, Ghana. We aim to provide
+                our guests with comfort, quality service
+                and a memorable hospitality experience.
+            </p>
+        </section>
+
+        <section class="rooms-section" id="rooms">
+            <p class="eyebrow">ACCOMMODATION</p>
+            <h2>Our Rooms & Suites</h2>
+            <p>
+                Discover comfortable accommodation
+                designed to make your stay enjoyable.
+            </p>
+            <div id="rooms-container">
+                <!-- Room information will be added here. -->
+            </div>
+        </section>
+
+        <section class="facilities-section" id="facilities">
+            <h2>Our Facilities</h2>
+            <p>Comfort and convenience throughout your stay.</p>
+            <div class="facility-list">
+                <span>Comfortable Accommodation</span>
+                <span>Dining</span>
+                <span>Guest Reception</span>
+                <span>Secure Parking</span>
+            </div>
+        </section>
+
+        <section class="contact-section" id="contact">
+            <p class="eyebrow">GET IN TOUCH</p>
+            <h2>We Look Forward to Welcoming You</h2>
+            <p>Azure Inn, Anomabo, Central Region, Ghana.</p>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Azure Inn. All Rights Reserved.</p>
+        <p>Anomabo, Central Region, Ghana.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
