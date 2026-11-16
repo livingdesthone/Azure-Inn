@@ -63,23 +63,63 @@
   <h2>Let's plan your stay.</h2>
   <p id="request-summary"></p>
 
-  <form id="booking-request-form">
-    <label for="guest-name">Full name</label>
-    <input id="guest-name" name="guest_name" type="text" required autocomplete="name">
+ 
+<form id="booking-request-form">
 
-    <label for="guest-email">Email address</label>
-    <input id="guest-email" name="guest_email" type="email" required autocomplete="email">
+  <label for="guest-name">
+    Full name
+    <input
+      id="guest-name"
+      name="guest_name"
+      type="text"
+      placeholder="Enter your full name"
+      autocomplete="name"
+      required
+    >
+  </label>
 
-    <label for="guest-phone">Phone number</label>
-    <input id="guest-phone" name="guest_phone" type="tel" required autocomplete="tel">
+  <label for="guest-email">
+    Email address
+    <input
+      id="guest-email"
+      name="guest_email"
+      type="email"
+      placeholder="Enter your email address"
+      autocomplete="email"
+      required
+    >
+  </label>
 
-    <label for="special-requests">Special requests (optional)</label>
-    <textarea id="special-requests" name="special_requests" rows="3"></textarea>
+  <label for="guest-phone">
+    Phone number
+    <input
+      id="guest-phone"
+      name="guest_phone"
+      type="tel"
+      placeholder="Enter your phone number"
+      autocomplete="tel"
+      required
+    >
+  </label>
 
-    <button type="submit" class="button button-navy" id="submit-booking">
-      Submit booking enquiry
-    </button>
-  </form>
+  <label for="special-requests">
+    Special requests (optional)
+    <textarea
+      id="special-requests"
+      name="special_requests"
+      rows="4"
+      placeholder="Anything we should know?"
+    ></textarea>
+  </label>
+
+  <button type="submit" class="button button-navy" id="submit-booking">
+    Submit booking enquiry
+  </button>
+
+</form>
+
+<p id="booking-message" aria-live="polite"></p>
+
 
   <p id="booking-message" role="status"></p>
   <p class="dialog-warning">
