@@ -65,18 +65,6 @@ document.querySelectorAll('[data-room]').forEach(link => {
 // Close dialog
 $('close-dialog').addEventListener('click', () => dialog.close());
 
-// Booking submission — temporarily disabled until rooms are approved
-$('booking-request-form').addEventListener('submit', event => {
-  event.preventDefault();
-
-  $('booking-message').textContent =
-    'Thank you for your interest in Azure Inn. Online booking requests are not yet available. Please contact the hotel directly while room details are being finalized.';
-
-  $('booking-message').scrollIntoView({
-    behavior: 'smooth',
-    block: 'nearest'
-  });
-});
 
 // Mobile navigation
 const menuButton = document.querySelector('.menu-toggle');
