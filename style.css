@@ -253,5 +253,134 @@
     padding: 32px 22px;
     border-radius: 14px;
   }
+
+/* AZURE INN — BOOKING DIALOG REFINEMENT */
+
+#request-dialog {
+  position: relative;
+  box-sizing: border-box;
+  width: min(92vw, 540px);
+  max-width: 540px;
+  padding: 42px;
+  border: 1px solid #C5A46D;
+  border-radius: 18px;
+  background: #F5F1E8;
+  color: #102A43;
 }
+
+#request-dialog .dialog-x {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  border: 1px solid #D9CFBE;
+  border-radius: 50%;
+  background: white;
+  color: #102A43;
+  font-size: 22px;
+  cursor: pointer;
+}
+
+#request-dialog .dialog-x:hover {
+  background: #102A43;
+  color: white;
+}
+
+#request-dialog .eyebrow {
+  margin-top: 12px;
+  color: #A27E43;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 2.5px;
+}
+
+#request-dialog h2 {
+  margin: 12px 0;
+  font-family: Georgia, serif;
+  font-size: 34px;
+  line-height: 1.2;
+  color: #102A43;
+}
+
+#request-summary {
+  margin: 20px 0 25px;
+  padding: 15px;
+  background: white;
+  border-left: 3px solid #C5A46D;
+  border-radius: 5px;
+  line-height: 1.7;
+}
+
+#booking-request-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+#booking-request-form label {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 10px;
+  color: #102A43;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+#booking-request-form input,
+#booking-request-form textarea {
+  display: block;
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 48px;
+  padding: 13px 14px;
+  border: 1px solid #DED7CB;
+  border-radius: 7px;
+  background: white;
+  color: #102A43;
+  font: inherit;
+  font-size: 14px;
+}
+
+#booking-request-form textarea {
+  min-height: 95px;
+  resize: vertical;
+}
+
+#booking-request-form input:focus,
+#booking-request-form textarea:focus {
+  outline: none;
+  border-color: #C5A46D;
+  box-shadow: 0 0 0 3px rgba(197,164,109,.15);
+}
+
+#booking-request-form button {
+  width: 100%;
+  min-height: 52px;
+  margin-top: 15px;
+  border: none;
+  border-radius: 7px;
+  background: #102A43;
+  color: white;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+#booking-request-form button:hover {
+  background: #1C4665;
+}
+
+@media (max-width: 600px) {
+  #request-dialog {
+    padding: 32px 22px;
+  }
+
+  #request-dialog h2 {
+    font-size: 28px;
+  }
+}
+
 
