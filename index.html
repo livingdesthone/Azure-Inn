@@ -9,6 +9,48 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
  <link rel="stylesheet" href="style.css">
+  
+<style>
+#request-dialog #booking-request-form {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: stretch !important;
+  gap: 16px !important;
+  width: 100% !important;
+}
+
+#request-dialog #booking-request-form label {
+  display: block !important;
+  width: 100% !important;
+  margin: 0 !important;
+  font-size: 13px !important;
+  font-weight: 600 !important;
+}
+
+#request-dialog #booking-request-form input,
+#request-dialog #booking-request-form textarea {
+  display: block !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+  margin-top: 8px !important;
+  padding: 13px !important;
+  min-height: 48px !important;
+  border: 1px solid #DED7CB !important;
+  border-radius: 7px !important;
+  background: white !important;
+}
+
+#request-dialog #booking-request-form textarea {
+  min-height: 100px !important;
+}
+
+#request-dialog #booking-request-form button {
+  width: 100% !important;
+  min-height: 52px !important;
+  margin-top: 5px !important;
+}
+</style>
+
 </head>
 <body>
 <header class="site-header">
@@ -120,11 +162,6 @@
 
 <p id="booking-message" aria-live="polite"></p>
 
-
-  <p id="booking-message" role="status"></p>
-  <p class="dialog-warning">
-    Your booking request is subject to hotel confirmation.
-  </p>
 </dialog>
 
 <script src="main.js"></script>
