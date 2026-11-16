@@ -23,4 +23,235 @@
   --muted: #71808C;
   --paper: #F5F1E8;
   --line: #E8E1D5;
+
+/* =================================
+   AZURE INN — LUXURY BOOKING DESIGN
+================================= */
+
+:root {
+  --azure-navy: #102A43;
+  --azure-gold: #C5A46D;
+  --azure-ivory: #F5F1E8;
+  --azure-white: #FFFFFF;
+  --azure-muted: #71808C;
 }
+
+/* Homepage availability panel */
+#availability-form {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr)) auto;
+  align-items: end;
+  gap: 18px;
+  padding: 26px;
+  background: var(--azure-white);
+  border: 1px solid #E8E1D5;
+  border-radius: 16px;
+  box-shadow: 0 15px 45px rgba(16, 42, 67, 0.12);
+}
+
+#availability-form label {
+  display: grid;
+  gap: 10px;
+  color: var(--azure-navy);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+}
+
+#availability-form input,
+#availability-form select {
+  width: 100%;
+  min-height: 48px;
+  padding: 0 13px;
+  border: 1px solid #E8E1D5;
+  border-radius: 8px;
+  background: #FAF9F6;
+  color: var(--azure-navy);
+  font: inherit;
+  font-size: 14px;
+  outline: none;
+  transition: border-color .25s, box-shadow .25s;
+}
+
+#availability-form input:focus,
+#availability-form select:focus {
+  border-color: var(--azure-gold);
+  box-shadow: 0 0 0 3px rgba(197, 164, 109, .15);
+}
+
+#availability-form .button {
+  min-height: 48px;
+  white-space: nowrap;
+}
+
+/* Premium booking popup */
+#request-dialog {
+  width: min(92%, 540px);
+  max-width: 540px;
+  max-height: 90vh;
+  overflow-y: auto;
+  padding: 42px;
+  border: 1px solid rgba(197, 164, 109, .55);
+  border-radius: 18px;
+  background: var(--azure-ivory);
+  color: var(--azure-navy);
+  box-shadow: 0 25px 80px rgba(0, 0, 0, .25);
+}
+
+#request-dialog[open] {
+  animation: azureDialogIn .3s ease-out;
+}
+
+#request-dialog::backdrop {
+  background: rgba(8, 25, 40, .72);
+  backdrop-filter: blur(5px);
+}
+
+@keyframes azureDialogIn {
+  from {
+    opacity: 0;
+    transform: translateY(15px) scale(.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+#request-dialog .eyebrow {
+  color: #A27E43;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 2.5px;
+}
+
+#request-dialog h2 {
+  margin: 10px 0 15px;
+  color: var(--azure-navy);
+  font-family: Georgia, serif;
+  font-size: clamp(27px, 5vw, 36px);
+  font-weight: 500;
+  line-height: 1.2;
+}
+
+#request-summary {
+  margin: 15px 0 25px;
+  padding: 14px;
+  border-left: 3px solid var(--azure-gold);
+  border-radius: 4px;
+  background: #FFFFFF;
+  color: #526474;
+  font-size: 13px;
+  line-height: 1.7;
+}
+
+/* Guest information fields */
+#booking-request-form {
+  display: grid;
+  gap: 11px;
+}
+
+#booking-request-form label {
+  margin-top: 8px;
+  color: var(--azure-navy);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: .5px;
+}
+
+#booking-request-form input,
+#booking-request-form textarea {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 13px 14px;
+  border: 1px solid #DED7CB;
+  border-radius: 8px;
+  background: #FFFFFF;
+  color: var(--azure-navy);
+  font: inherit;
+  font-size: 14px;
+  outline: none;
+  transition: border-color .2s, box-shadow .2s;
+}
+
+#booking-request-form input:focus,
+#booking-request-form textarea:focus {
+  border-color: var(--azure-gold);
+  box-shadow: 0 0 0 3px rgba(197, 164, 109, .15);
+}
+
+#booking-request-form textarea {
+  resize: vertical;
+  min-height: 90px;
+}
+
+#booking-request-form .button {
+  width: 100%;
+  min-height: 50px;
+  margin-top: 12px;
+  border: none;
+  border-radius: 8px;
+  background: var(--azure-navy);
+  color: white;
+  font-weight: 700;
+  transition: background .25s, transform .25s;
+}
+
+#booking-request-form .button:hover {
+  background: #1C4665;
+  transform: translateY(-2px);
+}
+
+/* Close button */
+#request-dialog .dialog-x {
+  position: absolute;
+  top: 14px;
+  right: 17px;
+  width: 36px;
+  height: 36px;
+  border: 1px solid #DED7CB;
+  border-radius: 50%;
+  background: white;
+  color: var(--azure-navy);
+  font-size: 23px;
+  cursor: pointer;
+}
+
+#request-dialog .dialog-x:hover {
+  background: var(--azure-navy);
+  color: white;
+}
+
+/* Booking status and disclaimer */
+#booking-message {
+  margin-top: 16px;
+  color: var(--azure-navy);
+  font-size: 13px;
+  line-height: 1.7;
+}
+
+#request-dialog .dialog-warning {
+  margin-top: 20px;
+  color: var(--azure-muted);
+  font-size: 11px;
+  line-height: 1.7;
+}
+
+/* Mobile layout */
+@media (max-width: 760px) {
+  #availability-form {
+    grid-template-columns: 1fr;
+    gap: 15px;
+    padding: 20px;
+  }
+
+  #availability-form .button {
+    width: 100%;
+  }
+
+  #request-dialog {
+    padding: 32px 22px;
+    border-radius: 14px;
+  }
+}
+
