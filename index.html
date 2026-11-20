@@ -984,7 +984,7 @@
         totalGHS = plan === 'deposit' ? Math.round(stayTotal * 0.5) : stayTotal;
       } else {
         // Dining reservation base fee + preordered dishes
-        let diningBase = 100; // table reservation deposit / credit
+        let diningBase = 0; // table reservation deposit / credit
         let preorderTotal = preorderedDishes.reduce((sum, d) => sum + d.priceGHS, 0);
         totalGHS = diningBase + preorderTotal;
       }
