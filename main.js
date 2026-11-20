@@ -69,7 +69,7 @@ const SUPABASE_FUNCTION_URL =
   'https://pwnvbwevovagdwbhzjdh.supabase.co/functions/v1/create-enquiry';
 
 // Paste your keys locally. Never paste the service-role key here.
-const SUPABASE_PUBLISHABLE_KEY = 'sb_publishable_v1MRaXxB47Tpq1VXmVtSog_RFJj-X02Y';
+const SUPABASE_PUBLISHABLE_KEY = 'sb_publishable_v1MRaXxB47Tpq1VXmVtSog_RFJj-X02';
 const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InB3bnZid2V2b3ZhZ2R3Ymh6amRoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTQ3NjYzOTcsImV4cCI6MjExMDM0MjM5N30.0XIybmw7A7nUORdRHsNugHBzu_MUpNCG4s477FwAgkA';
 
 // Booking enquiry submission
