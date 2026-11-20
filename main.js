@@ -108,8 +108,8 @@ $('booking-request-form').addEventListener('submit', async event => {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'apikey':SUPABASE_PUBLISHABLE_KEY,
-        'Authorization': `Bearer ${SUPABASE_ANON_KEY}`
+        'apikey':sb_publishable_v1MRaXxB47Tpq1VXmVtSog_RFJj-X02,
+        'Authorization': `Bearer ${eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InB3bnZid2V2b3ZhZ2R3Ymh6amRoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTQ3NjYzOTcsImV4cCI6MjExMDM0MjM5N30.0XIybmw7A7nUORdRHsNugHBzu_MUpNCG4s477FwAgkA}`
       },
       body: JSON.stringify(enquiry)
     });
