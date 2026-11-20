@@ -1028,9 +1028,9 @@
       // REPLACE WITH YOUR LIVE OR TEST PAYSTACK PUBLIC KEY
       // e.g., 'pk_live_xxxxxxxxxxxxxxxxxxxxxxxxxxxxx' or 'pk_test_xxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
       // ==============================================================
-      const PAYSTACK_PUBLIC_KEY = 'pk_test_your_paystack_public_key_here';
+      const PAYSTACK_PUBLIC_KEY = 'pk_live_c62cca3dc95212a44ac9647235547d4a4ff6a79d';
 
-      if (PAYSTACK_PUBLIC_KEY.includes('your_paystack_public_key_here')) {
+      if (PAYSTACK_PUBLIC_KEY.includes('pk_live_c62cca3dc95212a44ac9647235547d4a4ff6a79d')) {
         alert('Please update your Paystack Public Key in the JavaScript code before processing live payments.\n\nSimulating successful reservation confirmation for demo!');
         alert(`Reservation Confirmed!\n\nName: ${name}\nEmail: ${email}\nPhone: ${phone}\nDetails: ${description}\nAmount: ₵${amountGHS}`);
         closeBookingModal();
