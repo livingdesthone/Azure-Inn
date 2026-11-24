@@ -81,7 +81,6 @@ $('booking-request-form').addEventListener('submit', async event => {
   const originalButtonText = submitButton.textContent;
 
   const enquiry = {
-const enquiry = {
   room_type: selectedRoom,
   guest_name: $('guest-name').value.trim(),
   guest_email: $('guest-email').value.trim(),
