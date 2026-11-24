@@ -81,13 +81,15 @@ $('booking-request-form').addEventListener('submit', async event => {
   const originalButtonText = submitButton.textContent;
 
   const enquiry = {
-    guest_name: $('guest-name').value.trim(),
-    guest_email: $('guest-email').value.trim(),
-    guest_phone: $('guest-phone').value.trim(),
-    check_in: $('checkin').value,
-    check_out: $('checkout').value,
-    guests: Number($('guests').value),
-    special_requests: $('special-requests').value.trim()
+const enquiry = {
+  room_type: selectedRoom,
+  guest_name: $('guest-name').value.trim(),
+  guest_email: $('guest-email').value.trim(),
+  guest_phone: $('guest-phone').value.trim(),
+  check_in: $('checkin').value,
+  check_out: $('checkout').value,
+  guests: Number($('guests').value),
+  special_requests: $('special-requests').value.trim()
   };
 
   if (
