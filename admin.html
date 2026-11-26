@@ -136,6 +136,28 @@
 
       let allEnquiries = [];
 
+      async function loadEnquiries() {
+        dashboardMessage.textContent = '';
+        enquiriesBody.innerHTML = '<tr><td colspan="6" class="empty">Loading enquiries…</td></tr>';
+        const { data, error } = await db
+          .from('booking_enquiries')
+          .select('id,enquiry_reference,guest_name,guest_email,guest_phone,check_in,check_out,guests,special_requests,status,created_at')
+          .order('created_at', { ascending: false });
+
+        if (error) {
+          enquiriesBody.innerHTML = '<tr><td colspan="6" class="empty">Could not load enquiries. Please refresh or sign in again.</td></tr>';
+          dashboardMessage.textContent = error.message;
+          return;
+        }
+
+        allEnquiries = data || [];
+        document.getElementById('enquiryCount').textContent = allEnquiries.length;
+        document.getElementById('newCount').textContent = allEnquiries.filter(item => item.status === 'new').length;
+        document.getElementById('contactedCount').textContent = allEnquiries.filter(item => item.status === 'contacted').length;
+        document.getElementById('closedCount').textContent = allEnquiries.filter(item => item.status === 'closed').length;
+        renderEnquiries();
+      }
+
       function renderEnquiries() {
         const term = document.getElementById('searchEnquiries').value.trim().toLowerCase();
         const status = document.getElementById('statusFilter').value;
@@ -156,25 +178,65 @@
 
         enquiriesBody.replaceChildren();
         filtered.forEach(item => {
-        dashboardMessage.textContent = '';
-        enquiriesBody.innerHTML = '<tr><td colspan="6" class="empty">Loading enquiries…</td></tr>';
-        const { data, error } = await db
-          .from('booking_enquiries')
-          .select('id,enquiry_reference,guest_name,guest_email,guest_phone,check_in,check_out,guests,special_requests,status,created_at')
-          .order('created_at', { ascending: false });
+          const tr = document.createElement('tr');
+          const values = [
+            [item.enquiry_reference, safeDate(item.created_at)],
+            [item.guest_name, item.guest_email + ' · ' + cellText(item.guest_phone)],
+            [safeDate(item.check_in) + ' – ' + safeDate(item.check_out), ''],
+            [cellText(item.guests), ''],
+            [cellText(item.special_requests), '']
+          ];
+          values.forEach(([main, sub]) => {
+            const td = document.createElement('td');
+            const strong = document.createElement('strong');
+            strong.textContent = cellText(main);
+            td.appendChild(strong);
+            if (sub) {
+              const small = document.createElement('small');
+              small.textContent = sub;
+              td.appendChild(small);
+            }
+            tr.appendChild(td);
+          });
 
-        if (error) {
-          enquiriesBody.innerHTML = '<tr><td colspan="6" class="empty">Could not load enquiries. Please refresh or sign in again.</td></tr>';
-          dashboardMessage.textContent = error.message;
-          return;
-        }
-
-        allEnquiries = data;
-        document.getElementById('enquiryCount').textContent = data.length;
-        document.getElementById('newCount').textContent = data.filter(item => item.status === 'new').length;
-        document.getElementById('contactedCount').textContent = data.filter(item => item.status === 'contacted').length;
-        document.getElementById('closedCount').textContent = data.filter(item => item.status === 'closed').length;
-        renderEnquiries();
+          const statusCell = document.createElement('td');
+          const select = document.createElement('select');
+          select.className = 'status';
+          select.setAttribute('aria-label', 'Status for ' + item.enquiry_reference);
+          const statuses = ['new', 'contacted', 'closed'];
+          if (item.status && !statuses.includes(item.status)) statuses.push(item.status);
+          statuses.forEach(statusValue => {
+            const option = document.createElement('option');
+            option.value = statusValue;
+            option.textContent = statusValue.charAt(0).toUpperCase() + statusValue.slice(1);
+            select.appendChild(option);
+          });
+          select.value = item.status || 'new';
+          select.addEventListener('change', async () => {
+            const previousStatus = item.status || 'new';
+            const nextStatus = select.value;
+            select.disabled = true;
+            const { error: updateError } = await db
+              .from('booking_enquiries')
+              .update({ status: nextStatus })
+              .eq('id', item.id);
+            if (updateError) {
+              dashboardMessage.textContent = 'Status update failed: ' + updateError.message;
+              select.value = previousStatus;
+            } else {
+              item.status = nextStatus;
+              dashboardMessage.textContent = 'Enquiry status updated.';
+              document.getElementById('newCount').textContent = allEnquiries.filter(row => row.status === 'new').length;
+              document.getElementById('contactedCount').textContent = allEnquiries.filter(row => row.status === 'contacted').length;
+              document.getElementById('closedCount').textContent = allEnquiries.filter(row => row.status === 'closed').length;
+              renderEnquiries();
+            }
+            select.disabled = false;
+          });
+          statusCell.appendChild(select);
+          tr.appendChild(statusCell);
+          enquiriesBody.appendChild(tr);
+        });
       }
 
       document.getElementById('loginForm').addEventListener('submit', async event => {
