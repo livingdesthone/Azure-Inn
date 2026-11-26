@@ -27,6 +27,14 @@
     table{width:100%;border-collapse:collapse;min-width:850px}th,td{text-align:left;padding:13px 15px;border-bottom:1px solid var(--line);vertical-align:top;font-size:13px}th{color:#667783;background:#fafcfc;font-size:11px;text-transform:uppercase;letter-spacing:.5px}
     td small{display:block;color:var(--muted);margin-top:3px}.status{padding:7px 8px;border:1px solid #ccd7dc;border-radius:6px;background:white;color:var(--ink);font-size:12px}
     .empty{padding:32px;text-align:center;color:var(--muted)}.note{font-size:12px;color:var(--muted);margin-top:16px}
+    .detail-btn{border:1px solid #ccd7dc;border-radius:6px;background:#fff;color:var(--blue);padding:7px 10px;font-size:12px;font-weight:700;cursor:pointer}
+    dialog{width:min(620px,calc(100% - 28px));max-height:85vh;overflow:auto;border:0;border-radius:12px;padding:0;box-shadow:0 18px 60px #102b3f40;color:var(--ink)}
+    dialog::backdrop{background:#102b3f99}.dialog-head{display:flex;justify-content:space-between;align-items:center;padding:18px 22px;background:var(--navy);color:#fff}
+    .dialog-head h2{font-size:18px;margin:0}.dialog-close{border:0;background:transparent;color:white;font-size:25px;cursor:pointer}
+    .detail-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;padding:22px}
+    .detail-item{min-width:0}.detail-item span{display:block;color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px}
+    .detail-item strong{display:block;overflow-wrap:anywhere;font-size:14px;font-weight:600}.detail-wide{grid-column:1/-1}
+    @media(max-width:520px){.detail-grid{grid-template-columns:1fr}.detail-wide{grid-column:auto}}
     @media(max-width:760px){.stats{grid-template-columns:repeat(2,minmax(0,1fr))}.filters input,.filters select{width:100%;min-width:0}.filter-count{margin-left:0}}@media(max-width:600px){main{margin:24px auto}.heading{align-items:start;flex-direction:column}.login{padding:24px}.topbar{padding:15px 4%}}
   </style>
 </head>
@@ -75,8 +83,8 @@
         </div>
         <div class="table-wrap">
           <table>
-            <thead><tr><th>Reference / Date</th><th>Guest</th><th>Stay</th><th>Guests</th><th>Request</th><th>Status</th></tr></thead>
-            <tbody id="enquiriesBody"><tr><td colspan="6" class="empty">Loading enquiries…</td></tr></tbody>
+            <thead><tr><th>Reference / Date</th><th>Guest</th><th>Stay</th><th>Guests</th><th>Request</th><th>Status</th><th>Details</th></tr></thead>
+            <tbody id="enquiriesBody"><tr><td colspan="7" class="empty">Loading enquiries…</td></tr></tbody>
           </table>
         </div>
       </div>
@@ -84,6 +92,14 @@
       <p id="dashboardMessage" class="message" role="status" aria-live="polite"></p>
     </section>
   </main>
+
+  <dialog id="enquiryDialog" aria-labelledby="detailTitle">
+    <div class="dialog-head">
+      <h2 id="detailTitle">Enquiry details</h2>
+      <button class="dialog-close" id="closeEnquiryDialog" type="button" aria-label="Close details">&times;</button>
+    </div>
+    <div class="detail-grid" id="enquiryDetailContent"></div>
+  </dialog>
 
   <script>
     (() => {
@@ -138,14 +154,14 @@
 
       async function loadEnquiries() {
         dashboardMessage.textContent = '';
-        enquiriesBody.innerHTML = '<tr><td colspan="6" class="empty">Loading enquiries…</td></tr>';
+        enquiriesBody.innerHTML = '<tr><td colspan="7" class="empty">Loading enquiries…</td></tr>';
         const { data, error } = await db
           .from('booking_enquiries')
           .select('id,enquiry_reference,guest_name,guest_email,guest_phone,check_in,check_out,guests,special_requests,status,created_at')
           .order('created_at', { ascending: false });
 
         if (error) {
-          enquiriesBody.innerHTML = '<tr><td colspan="6" class="empty">Could not load enquiries. Please refresh or sign in again.</td></tr>';
+          enquiriesBody.innerHTML = '<tr><td colspan="7" class="empty">Could not load enquiries. Please refresh or sign in again.</td></tr>';
           dashboardMessage.textContent = error.message;
           return;
         }
@@ -156,6 +172,36 @@
         document.getElementById('contactedCount').textContent = allEnquiries.filter(item => item.status === 'contacted').length;
         document.getElementById('closedCount').textContent = allEnquiries.filter(item => item.status === 'closed').length;
         renderEnquiries();
+      }
+
+
+      function showEnquiryDetails(item) {
+        const dialog = document.getElementById('enquiryDialog');
+        const content = document.getElementById('enquiryDetailContent');
+        const fields = [
+          ['Reference', item.enquiry_reference],
+          ['Submitted', item.created_at ? new Date(item.created_at).toLocaleString() : '—'],
+          ['Guest name', item.guest_name],
+          ['Email address', item.guest_email],
+          ['Phone number', item.guest_phone],
+          ['Check-in', safeDate(item.check_in)],
+          ['Check-out', safeDate(item.check_out)],
+          ['Number of guests', item.guests],
+          ['Status', item.status],
+          ['Special request', item.special_requests]
+        ];
+        content.replaceChildren();
+        fields.forEach(([label, value]) => {
+          const wrapper = document.createElement('div');
+          wrapper.className = 'detail-item' + (label === 'Special request' ? ' detail-wide' : '');
+          const caption = document.createElement('span');
+          caption.textContent = label;
+          const detail = document.createElement('strong');
+          detail.textContent = cellText(value);
+          wrapper.append(caption, detail);
+          content.appendChild(wrapper);
+        });
+        if (!dialog.open) dialog.showModal();
       }
 
       function renderEnquiries() {
@@ -172,7 +218,7 @@
         document.getElementById('filterCount').textContent =
           'Showing ' + filtered.length + ' of ' + allEnquiries.length;
         if (!filtered.length) {
-          enquiriesBody.innerHTML = '<tr><td colspan="6" class="empty">No enquiries match these filters.</td></tr>';
+          enquiriesBody.innerHTML = '<tr><td colspan="7" class="empty">No enquiries match these filters.</td></tr>';
           return;
         }
 
@@ -235,6 +281,16 @@
           });
           statusCell.appendChild(select);
           tr.appendChild(statusCell);
+
+          const detailsCell = document.createElement('td');
+          const detailsButton = document.createElement('button');
+          detailsButton.type = 'button';
+          detailsButton.className = 'detail-btn';
+          detailsButton.textContent = 'View details';
+          detailsButton.addEventListener('click', () => showEnquiryDetails(item));
+          detailsCell.appendChild(detailsButton);
+          tr.appendChild(detailsCell);
+
           enquiriesBody.appendChild(tr);
         });
       }
@@ -273,6 +329,9 @@
       });
 
       document.getElementById('refreshBtn').addEventListener('click', loadEnquiries);
+      document.getElementById('closeEnquiryDialog').addEventListener('click', () => {
+        document.getElementById('enquiryDialog').close();
+      });
 
       (async () => {
         if (await verifyAdmin()) {
