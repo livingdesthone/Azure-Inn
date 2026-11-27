@@ -88,6 +88,19 @@
           </table>
         </div>
       </div>
+      <div class="panel" style="margin-top:20px">
+        <div class="table-head">
+          <div><h2>Bookings</h2><p style="margin:4px 0 0;color:var(--muted);font-size:12px">Booking records are shown separately from enquiries.</p></div>
+          <button id="refreshBookingsBtn" type="button" style="border:1px solid #ccd7dc;border-radius:7px;background:white;color:var(--blue);padding:9px 14px;font-weight:700;cursor:pointer">Refresh bookings</button>
+        </div>
+        <div class="table-wrap">
+          <table style="min-width:760px">
+            <thead><tr><th>Booking reference</th><th>Guest</th><th>Stay</th><th>Guests</th><th>Quoted total</th><th>Status</th></tr></thead>
+            <tbody id="bookingsBody"><tr><td colspan="6" class="empty">Loading bookings…</td></tr></tbody>
+          </table>
+        </div>
+        <p id="bookingsMessage" class="note" style="padding:0 18px 14px;margin:0" role="status" aria-live="polite"></p>
+      </div>
       <p class="note">Guest information is confidential. Sign out when you finish using this portal.</p>
       <p id="dashboardMessage" class="message" role="status" aria-live="polite"></p>
     </section>
@@ -114,6 +127,7 @@
       const dashboardMessage = document.getElementById('dashboardMessage');
       const loginBtn = document.getElementById('loginBtn');
       const enquiriesBody = document.getElementById('enquiriesBody');
+      const bookingsBody = document.getElementById('bookingsBody');
 
       function showLogin(message = '') {
         loginPanel.classList.remove('hidden');
@@ -174,6 +188,59 @@
         renderEnquiries();
       }
 
+
+      async function loadBookings() {
+        const message = document.getElementById('bookingsMessage');
+        message.textContent = '';
+        bookingsBody.innerHTML = '<tr><td colspan="6" class="empty">Loading bookings…</td></tr>';
+        const { data, error } = await db
+          .from('bookings')
+          .select('id,booking_reference,guest_name,guest_email,check_in,check_out,guests,status,quoted_total_ghs,currency,created_at')
+          .order('created_at', { ascending: false });
+
+        if (error) {
+          bookingsBody.innerHTML = '<tr><td colspan="6" class="empty">Could not load bookings.</td></tr>';
+          message.textContent = 'Bookings could not be loaded: ' + error.message;
+          return;
+        }
+
+        const bookings = data || [];
+        if (!bookings.length) {
+          bookingsBody.innerHTML = '<tr><td colspan="6" class="empty">No booking records yet. New booking records will appear here.</td></tr>';
+          message.textContent = '0 booking records';
+          return;
+        }
+
+        bookingsBody.replaceChildren();
+        bookings.forEach(item => {
+          const tr = document.createElement('tr');
+          const total = item.quoted_total_ghs == null
+            ? 'Not set'
+            : Number(item.quoted_total_ghs).toLocaleString() + ' ' + cellText(item.currency || 'GHS');
+          const values = [
+            [item.booking_reference, item.created_at ? new Date(item.created_at).toLocaleDateString() : ''],
+            [item.guest_name, item.guest_email],
+            [safeDate(item.check_in) + ' – ' + safeDate(item.check_out), ''],
+            [cellText(item.guests), ''],
+            [total, ''],
+            [cellText(item.status), '']
+          ];
+          values.forEach(([main, sub]) => {
+            const td = document.createElement('td');
+            const strong = document.createElement('strong');
+            strong.textContent = cellText(main);
+            td.appendChild(strong);
+            if (sub) {
+              const small = document.createElement('small');
+              small.textContent = sub;
+              td.appendChild(small);
+            }
+            tr.appendChild(td);
+          });
+          bookingsBody.appendChild(tr);
+        });
+        message.textContent = bookings.length + ' booking record' + (bookings.length === 1 ? '' : 's');
+      }
 
       function showEnquiryDetails(item) {
         const dialog = document.getElementById('enquiryDialog');
@@ -350,6 +417,7 @@
         } else if (await verifyAdmin()) {
           showDashboard();
           await loadEnquiries();
+          await loadBookings();
         } else {
           showLogin('This account is not authorized for the admin portal.');
         }
@@ -372,6 +440,7 @@
 
       document.getElementById('exportCsvBtn').addEventListener('click', exportEnquiriesCsv);
       document.getElementById('refreshBtn').addEventListener('click', loadEnquiries);
+      document.getElementById('refreshBookingsBtn').addEventListener('click', loadBookings);
       document.getElementById('closeEnquiryDialog').addEventListener('click', () => {
         document.getElementById('enquiryDialog').close();
       });
@@ -380,6 +449,7 @@
         if (await verifyAdmin()) {
           showDashboard();
           await loadEnquiries();
+          await loadBookings();
         } else {
           showLogin();
         }
